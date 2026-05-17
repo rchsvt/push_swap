@@ -52,7 +52,7 @@ typedef struct s_count
 	int	rrr;
 }	t_count;
 
-extern t_count	g_count;
+t_count	g_count;
 
 /* Parsing */
 int		ft_is_number(char *str);
