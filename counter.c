@@ -1,40 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   radix_sort.c                                       :+:      :+:    :+:   */
+/*   counter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:42 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:09:44 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026/05/16 00:10:14 by yaaguerd          #+#    #+#             */
+/*   Updated: 2026/05/16 00:10:14 by yaaguerd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	radix_sort(t_stack **a, t_stack **b)
-{
-	int	i;
-	int	j;
-	int	size;
-	int	max_bits;
-
-	i = 0;
-	size = ft_lstsize(*a);
-	max_bits = get_max_bits(*a);
-	while (i < max_bits)
-	{
-		j = 0;
-		while (j < size)
-		{
-			if ((((*a)->index >> i) & 1) == 1)
-				ra(a);
-			else
-				pb(a, b);
-			j++;
-		}
-		while (*b)
-			pa(a, b);
-		i++;
-	}
-}
+t_count	g_count;

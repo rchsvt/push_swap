@@ -1,40 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   radix_sort.c                                       :+:      :+:    :+:   */
+/*   stack_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:42 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:09:44 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026/05/16 00:36:01 by yaaguerd          #+#    #+#             */
+/*   Updated: 2026/05/16 00:36:03 by yaaguerd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	radix_sort(t_stack **a, t_stack **b)
+void	move_to_top(t_stack **a, int index)
 {
-	int	i;
-	int	j;
+	int	pos;
 	int	size;
-	int	max_bits;
 
-	i = 0;
+	pos = get_position(*a, index);
 	size = ft_lstsize(*a);
-	max_bits = get_max_bits(*a);
-	while (i < max_bits)
+	if (pos <= size / 2)
 	{
-		j = 0;
-		while (j < size)
-		{
-			if ((((*a)->index >> i) & 1) == 1)
-				ra(a);
-			else
-				pb(a, b);
-			j++;
-		}
-		while (*b)
-			pa(a, b);
-		i++;
+		while ((*a)->index != index)
+			ra(a);
 	}
+	else
+	{
+		while ((*a)->index != index)
+			rra(a);
+	}
+}
+
+int	get_max_index(t_stack *a)
+{
+	int	max;
+
+	max = a->index;
+	while (a)
+	{
+		if (a->index > max)
+			max = a->index;
+		a = a->next;
+	}
+	return (max);
 }

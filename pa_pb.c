@@ -1,40 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   radix_sort.c                                       :+:      :+:    :+:   */
+/*   pa_pb.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:42 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:09:44 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026/05/16 00:09:52 by yaaguerd          #+#    #+#             */
+/*   Updated: 2026/05/16 00:09:53 by yaaguerd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	radix_sort(t_stack **a, t_stack **b)
+void	pb(t_stack **a, t_stack **b)
 {
-	int	i;
-	int	j;
-	int	size;
-	int	max_bits;
+	t_stack	*tmp;
 
-	i = 0;
-	size = ft_lstsize(*a);
-	max_bits = get_max_bits(*a);
-	while (i < max_bits)
-	{
-		j = 0;
-		while (j < size)
-		{
-			if ((((*a)->index >> i) & 1) == 1)
-				ra(a);
-			else
-				pb(a, b);
-			j++;
-		}
-		while (*b)
-			pa(a, b);
-		i++;
-	}
+	if (!a || !*a)
+		return ;
+	tmp = *a;
+	*a = (*a)->next;
+	tmp->next = *b;
+	*b = tmp;
+	g_count.pa++;
+	write(1, "pb\n", 3);
+}
+
+void	pa(t_stack **a, t_stack **b)
+{
+	t_stack	*tmp;
+
+	if (!b || !*b)
+		return ;
+	tmp = *b;
+	*b = (*b)->next;
+	tmp->next = *a;
+	*a = tmp;
+	g_count.pb++;
+	write(1, "pa\n", 3);
 }

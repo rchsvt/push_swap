@@ -1,4 +1,3 @@
 .DS_Store
 push_swap
 *.o
-libft/libft.a

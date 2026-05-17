@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   radix_sort.c                                       :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:42 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:09:44 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026/05/16 00:10:12 by yaaguerd          #+#    #+#             */
+/*   Updated: 2026/05/16 00:27:10 by yaaguerd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	radix_sort(t_stack **a, t_stack **b)
+void	ft_error(void)
 {
-	int	i;
-	int	j;
-	int	size;
-	int	max_bits;
+	write(2, "Error\n", 6);
+	exit(1);
+}
 
-	i = 0;
-	size = ft_lstsize(*a);
-	max_bits = get_max_bits(*a);
-	while (i < max_bits)
-	{
-		j = 0;
-		while (j < size)
-		{
-			if ((((*a)->index >> i) & 1) == 1)
-				ra(a);
-			else
-				pb(a, b);
-			j++;
-		}
-		while (*b)
-			pa(a, b);
-		i++;
-	}
+void	ft_error_stack(t_stack **a)
+{
+	free_stack(a);
+	write(2, "Error\n", 6);
+	exit(1);
 }
