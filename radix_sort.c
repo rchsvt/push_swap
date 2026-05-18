@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "push_swap.h"
 
 static void	sort_bit(t_stack **a, t_stack **b, int bit, int size)
