@@ -32,7 +32,7 @@ size_t	ps_strlen(char *s)
 	return (i);
 }
 
-void	ps_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	if (!s)
 		return ;
@@ -42,6 +42,6 @@ void	ps_putstr_fd(char *s, int fd)
 void	error_exit(t_stack **a)
 {
 	free_stack(a);
-	ps_putstr_fd("Error\n", 2);
+	ft_putstr_fd("Error\n", 2);
 	exit(1);
 }

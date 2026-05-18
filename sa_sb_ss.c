@@ -29,18 +29,18 @@ static void	swap(t_stack **stack)
 void	sa(t_stack **a)
 {
 	swap(a);
-	ps_putstr_fd("sa\n", 1);
+	ft_putstr_fd("sa\n", 1);
 }
 
 void	sb(t_stack **b)
 {
 	swap(b);
-	ps_putstr_fd("sb\n", 1);
+	ft_putstr_fd("sb\n", 1);
 }
 
 void	ss(t_stack **a, t_stack **b)
 {
 	swap(a);
 	swap(b);
-	ps_putstr_fd("ss\n", 1);
+	ft_putstr_fd("ss\n", 1);
 }

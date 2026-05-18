@@ -3,10 +3,7 @@ NAME = push_swap
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = main.c \
-	utils.c \
-	free.c \
-	split.c \
+SRC = main.c \
 	parsing.c \
 	init_stack.c \
 	stack_utils.c \
@@ -17,23 +14,30 @@ SRCS = main.c \
 	rra_rrb_rrr.c \
 	small_sort.c \
 	radix_sort.c \
-	sort.c
+	sort.c \
+	utils.c \
+	free.c \
+	split.c
 
-OBJS = $(SRCS:.c=.o)
+OBJ = $(SRC:.c=.o)
+
+LIBFT = libft/libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+$(LIBFT):
+	make -C libft
 
-%.o: %.c push_swap.h
-	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJ)
+	make -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
+	make -C libft fclean
 
 re: fclean all
 

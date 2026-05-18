@@ -43,11 +43,11 @@ int	parse_number(char *str, int *nbr)
 	if (!str || !str[0])
 		return (0);
 	sign = parse_sign(str, &i);
-	if (!ps_isdigit(str[i]))
+	if (!ft_isdigit(str[i]))
 		return (0);
 	while (str[i])
 	{
-		if (!ps_isdigit(str[i]))
+		if (!ft_isdigit(str[i]))
 			return (0);
 		n = n * 10 + str[i] - '0';
 		i++;
