@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
+/*   By: rchavast <rchavast@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:31 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:25:50 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026-05-18 16:18:50 by rchavast          #+#    #+#             */
+/*   Updated: 2026-05-18 16:18:50 by rchavast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*ft_lstnew(int value)
+t_stack	*stack_new(int value)
 {
 	t_stack	*new;
 
@@ -20,44 +20,55 @@ t_stack	*ft_lstnew(int value)
 	if (!new)
 		return (NULL);
 	new->value = value;
-	new->index = -1;
+	new->index = 0;
 	new->next = NULL;
 	return (new);
 }
 
-t_stack	*ft_lstlast(t_stack *lst)
+t_stack	*stack_last(t_stack *stack)
 {
-	if (!lst)
+	if (!stack)
 		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	while (stack->next)
+		stack = stack->next;
+	return (stack);
 }
 
-void	ft_lstadd_back(t_stack **lst, t_stack *new)
+void	stack_add_back(t_stack **stack, t_stack *new)
 {
 	t_stack	*last;
 
-	if (!lst || !new)
+	if (!new)
 		return ;
-	if (!*lst)
+	if (!*stack)
 	{
-		*lst = new;
+		*stack = new;
 		return ;
 	}
-	last = ft_lstlast(*lst);
+	last = stack_last(*stack);
 	last->next = new;
 }
 
-int	ft_lstsize(t_stack *lst)
+int	stack_size(t_stack *stack)
 {
-	int	i;
+	int	size;
 
-	i = 0;
-	while (lst)
+	size = 0;
+	while (stack)
 	{
-		i++;
-		lst = lst->next;
+		size++;
+		stack = stack->next;
 	}
-	return (i);
+	return (size);
+}
+
+int	is_sorted(t_stack *stack)
+{
+	while (stack && stack->next)
+	{
+		if (stack->value > stack->next->value)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
 }

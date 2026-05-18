@@ -3,68 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ra_rb_rr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
+/*   By: rchavast <rchavast@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:46 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:39:53 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026-05-18 16:17:55 by rchavast          #+#    #+#             */
+/*   Updated: 2026-05-18 16:17:55 by rchavast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "push_swap.h"
 
-void	ra(t_stack **a)
+static void	rotate(t_stack **stack)
 {
 	t_stack	*first;
 	t_stack	*last;
 
-	if (!a || !*a || !(*a)->next)
+	if (!stack || !*stack || !(*stack)->next)
 		return ;
-	first = *a;
-	*a = first->next;
+	first = *stack;
+	*stack = first->next;
 	first->next = NULL;
-	last = ft_lstlast(*a);
+	last = stack_last(*stack);
 	last->next = first;
-	g_count.ra++;
-	write(1, "ra\n", 3);
+}
+
+void	ra(t_stack **a)
+{
+	rotate(a);
+	ps_putstr_fd("ra\n", 1);
 }
 
 void	rb(t_stack **b)
 {
-	t_stack	*first;
-	t_stack	*last;
-
-	if (!b || !*b || !(*b)->next)
-		return ;
-	first = *b;
-	*b = first->next;
-	first->next = NULL;
-	last = ft_lstlast(*b);
-	last->next = first;
-	g_count.rb++;
-	write(1, "rb\n", 3);
+	rotate(b);
+	ps_putstr_fd("rb\n", 1);
 }
 
 void	rr(t_stack **a, t_stack **b)
 {
-	t_stack	*first;
-	t_stack	*last;
-
-	if (a && *a && (*a)->next)
-	{
-		first = *a;
-		*a = first->next;
-		first->next = NULL;
-		last = ft_lstlast(*a);
-		last->next = first;
-	}
-	if (b && *b && (*b)->next)
-	{
-		first = *b;
-		*b = first->next;
-		first->next = NULL;
-		last = ft_lstlast(*b);
-		last->next = first;
-	}
-	g_count.rr++;
-	write(1, "rr\n", 3);
+	rotate(a);
+	rotate(b);
+	ps_putstr_fd("rr\n", 1);
 }

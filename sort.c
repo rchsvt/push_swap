@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
+/*   By: rchavast <rchavast@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:10:04 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:10:04 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026-05-18 16:18:41 by rchavast          #+#    #+#             */
+/*   Updated: 2026-05-18 16:18:41 by rchavast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
 
-# include <unistd.h>
-# include <stdarg.h>
+#include "push_swap.h"
 
-int	ft_printf_fd(int fd, const char *format, ...);
+void	sort_stack(t_stack **a, t_stack **b)
+{
+	int	size;
 
-#endif
+	size = stack_size(*a);
+	if (size == 2)
+		sa(a);
+	else if (size == 3)
+		sort_three(a);
+	else if (size <= 5)
+		sort_five(a, b);
+	else
+		radix_sort(a, b);
+}

@@ -3,67 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
+/*   By: rchavast <rchavast@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:50 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:22:55 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026-05-18 16:19:53 by rchavast          #+#    #+#             */
+/*   Updated: 2026-05-18 16:19:53 by rchavast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-long	ft_atol(const char *str)
+static int	valid_limit(long n, int sign)
 {
-	long	result;
-	long	sign;
-
-	result = 0;
-	sign = 1;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign = -1;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		result = result * 10 + (*str - '0');
-		str++;
-	}
-	return (result * sign);
+	if (sign == 1 && n > INT_MAX)
+		return (0);
+	if (sign == -1 && -n < INT_MIN)
+		return (0);
+	return (1);
 }
 
-int	ft_is_number(char *str)
+static int	parse_sign(char *str, int *i)
 {
-	int	i;
-
-	i = 0;
-	if (str[i] == '+' || str[i] == '-')
-		i++;
-	if (!str[i])
-		return (0);
-	while (str[i])
+	if (str[*i] == '-' || str[*i] == '+')
 	{
-		if (!(str[i] >= '0' && str[i] <= '9'))
-			return (0);
-		i++;
+		(*i)++;
+		if (str[0] == '-')
+			return (-1);
 	}
 	return (1);
 }
 
-int	has_duplicate(t_stack *a)
+int	parse_number(char *str, int *nbr)
 {
-	t_stack	*tmp;
+	long	n;
+	int		sign;
+	int		i;
 
+	n = 0;
+	i = 0;
+	if (!str || !str[0])
+		return (0);
+	sign = parse_sign(str, &i);
+	if (!ps_isdigit(str[i]))
+		return (0);
+	while (str[i])
+	{
+		if (!ps_isdigit(str[i]))
+			return (0);
+		n = n * 10 + str[i++] - '0';
+		if (!valid_limit(n, sign))
+			return (0);
+	}
+	*nbr = (int)(n * sign);
+	return (1);
+}
+
+int	has_duplicate(t_stack *a, int value)
+{
 	while (a)
 	{
-		tmp = a->next;
-		while (tmp)
-		{
-			if (a->value == tmp->value)
-				return (1);
-			tmp = tmp->next;
-		}
+		if (a->value == value)
+			return (1);
 		a = a->next;
 	}
 	return (0);

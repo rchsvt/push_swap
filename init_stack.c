@@ -3,64 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   init_stack.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
+/*   By: rchavast <rchavast@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:10:01 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:40:19 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026-05-18 16:19:15 by rchavast          #+#    #+#             */
+/*   Updated: 2026-05-18 16:19:15 by rchavast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	free_split(char **split)
+static void	add_number(t_stack **a, int nbr)
+{
+	t_stack	*new;
+
+	if (has_duplicate(*a, nbr))
+		error_exit(a);
+	new = stack_new(nbr);
+	if (!new)
+		error_exit(a);
+	stack_add_back(a, new);
+}
+
+static void	parse_tab(t_stack **a, char **tab)
 {
 	int	i;
+	int	nbr;
 
 	i = 0;
-	while (split[i])
+	while (tab[i])
 	{
-		free(split[i]);
+		if (!parse_number(tab[i], &nbr))
+		{
+			free_split(tab);
+			error_exit(a);
+		}
+		add_number(a, nbr);
 		i++;
 	}
-	free(split);
 }
 
-static void	add_number(t_stack **a, char *str, char **split)
+int	parse_args(t_stack **a, int ac, char **av)
 {
-	long	nb;
-
-	if (!ft_is_number(str))
-	{
-		free_split(split);
-		ft_error_stack(a);
-	}
-	nb = ft_atol(str);
-	if (nb > INT_MAX || nb < INT_MIN)
-	{
-		free_split(split);
-		ft_error_stack(a);
-	}
-	ft_lstadd_back(a, ft_lstnew((int)nb));
-}
-
-void	init_stack(t_stack **a, char **argv)
-{
-	char	**split;
+	char	**tab;
 	int		i;
-	int		j;
 
 	i = 1;
-	while (argv[i])
+	while (i < ac)
 	{
-		split = ft_split(argv[i], ' ');
-		if (!split)
-			ft_error_stack(a);
-		j = 0;
-		while (split[j])
-			add_number(a, split[j++], split);
-		free_split(split);
+		tab = ps_split(av[i]);
+		if (!tab)
+			error_exit(a);
+		parse_tab(a, tab);
+		free_split(tab);
 		i++;
 	}
-	if (has_duplicate(*a))
-		ft_error_stack(a);
+	return (1);
 }

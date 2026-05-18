@@ -3,82 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
+/*   By: rchavast <rchavast@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:18 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:33:10 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026-05-18 16:18:58 by rchavast          #+#    #+#             */
+/*   Updated: 2026-05-18 16:18:58 by rchavast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "push_swap.h"
 
-int	is_sorted(t_stack *a)
+int	ps_isspace(char c)
 {
-	while (a && a->next)
-	{
-		if (a->value > a->next->value)
-			return (0);
-		a = a->next;
-	}
-	return (1);
+	return (c == ' ' || (c >= 9 && c <= 13));
 }
 
-void	assign_index(t_stack *a)
+int	ps_isdigit(char c)
 {
-	t_stack	*current;
-	t_stack	*smallest;
-	int		index;
-
-	index = 0;
-	while (index < ft_lstsize(a))
-	{
-		smallest = NULL;
-		current = a;
-		while (current)
-		{
-			if (current->index == -1
-				&& (!smallest
-					|| current->value < smallest->value))
-				smallest = current;
-			current = current->next;
-		}
-		if (smallest)
-			smallest->index = index++;
-	}
+	return (c >= '0' && c <= '9');
 }
 
-void	print_stack(t_stack *a)
+size_t	ps_strlen(char *s)
 {
-	while (a)
-	{
-		ft_printf_fd(1, "%d -> %d\n", a->value, a->index);
-		a = a->next;
-	}
+	size_t	i;
+
+	i = 0;
+	while (s && s[i])
+		i++;
+	return (i);
 }
 
-double	compute_disorder(t_stack *a)
+void	ps_putstr_fd(char *s, int fd)
 {
-	t_stack	*i;
-	t_stack	*j;
-	double	mistakes;
-	double	total;
+	if (!s)
+		return ;
+	write(fd, s, ps_strlen(s));
+}
 
-	mistakes = 0;
-	total = 0;
-	i = a;
-	while (i)
-	{
-		j = i->next;
-		while (j)
-		{
-			total++;
-			if (i->value > j->value)
-				mistakes++;
-			j = j->next;
-		}
-		i = i->next;
-	}
-	if (total == 0)
-		return (0);
-	return (mistakes / total);
+void	error_exit(t_stack **a)
+{
+	free_stack(a);
+	ps_putstr_fd("Error\n", 2);
+	exit(1);
 }

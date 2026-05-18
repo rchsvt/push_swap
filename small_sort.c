@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   small_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
+/*   By: rchavast <rchavast@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:33 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:36:31 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026-05-18 16:18:32 by rchavast          #+#    #+#             */
+/*   Updated: 2026-05-18 16:18:32 by rchavast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,66 +14,46 @@
 
 void	sort_three(t_stack **a)
 {
-	int	max;
+	int	x;
+	int	y;
+	int	z;
 
-	max = get_max(*a);
-	if ((*a)->value == max)
+	x = (*a)->index;
+	y = (*a)->next->index;
+	z = (*a)->next->next->index;
+	if (x > y && x > z)
 		ra(a);
-	else if ((*a)->next->value == max)
+	else if (y > x && y > z)
 		rra(a);
-	if ((*a)->value > (*a)->next->value)
+	if (!is_sorted(*a))
 		sa(a);
+}
+
+static void	move_min_to_b(t_stack **a, t_stack **b)
+{
+	int	pos;
+	int	size;
+
+	pos = get_min_index_pos(*a);
+	size = stack_size(*a);
+	if (pos <= size / 2)
+	{
+		while (pos-- > 0)
+			ra(a);
+	}
+	else
+	{
+		while (pos++ < size)
+			rra(a);
+	}
+	pb(a, b);
 }
 
 void	sort_five(t_stack **a, t_stack **b)
 {
-	int	min;
-
-	while (ft_lstsize(*a) > 3)
-	{
-		min = get_min(*a);
-		if ((*a)->value == min)
-			pb(a, b);
-		else
-			ra(a);
-	}
+	while (stack_size(*a) > 3)
+		move_min_to_b(a, b);
 	sort_three(a);
-	pa(a, b);
-	pa(a, b);
-}
-
-static void	push_chunk(t_stack **a, t_stack **b, int *i, int chunk)
-{
-	if ((*a)->index <= *i)
-	{
-		pb(a, b);
-		rb(b);
-		(*i)++;
-	}
-	else if ((*a)->index <= *i + chunk)
-	{
-		pb(a, b);
-		(*i)++;
-	}
-	else
-		ra(a);
-}
-
-void	chunk_sort(t_stack **a, t_stack **b)
-{
-	int	chunk;
-	int	i;
-
-	if (ft_lstsize(*a) <= 100)
-		chunk = 15;
-	else
-		chunk = 30;
-	i = 0;
-	while (*a)
-		push_chunk(a, b, &i, chunk);
 	while (*b)
-	{
-		move_to_top(b, get_max_index(*b));
 		pa(a, b);
-	}
 }

@@ -3,68 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   sa_sb_ss.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
+/*   By: rchavast <rchavast@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:37 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:36:37 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026-05-18 16:18:26 by rchavast          #+#    #+#             */
+/*   Updated: 2026-05-18 16:18:26 by rchavast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static void	swap(t_stack **stack)
+{
+	t_stack	*first;
+	t_stack	*second;
+
+	if (!stack || !*stack || !(*stack)->next)
+		return ;
+	first = *stack;
+	second = first->next;
+	first->next = second->next;
+	second->next = first;
+	*stack = second;
+}
+
 void	sa(t_stack **a)
 {
-	t_stack	*tmp1;
-	t_stack	*tmp2;
-
-	if (!a || !*a || !(*a)->next)
-		return ;
-	tmp1 = *a;
-	tmp2 = tmp1->next;
-	tmp1->next = tmp2->next;
-	tmp2->next = tmp1;
-	*a = tmp2;
-	g_count.sa++;
-	write(1, "sa\n", 3);
+	swap(a);
+	ps_putstr_fd("sa\n", 1);
 }
 
 void	sb(t_stack **b)
 {
-	t_stack	*tmp1;
-	t_stack	*tmp2;
-
-	if (!b || !*b || !(*b)->next)
-		return ;
-	tmp1 = *b;
-	tmp2 = tmp1->next;
-	tmp1->next = tmp2->next;
-	tmp2->next = tmp1;
-	*b = tmp2;
-	g_count.sb++;
-	write(1, "sb\n", 3);
+	swap(b);
+	ps_putstr_fd("sb\n", 1);
 }
 
 void	ss(t_stack **a, t_stack **b)
 {
-	t_stack	*tmp1;
-	t_stack	*tmp2;
-
-	if (a && *a && (*a)->next)
-	{
-		tmp1 = *a;
-		tmp2 = tmp1->next;
-		tmp1->next = tmp2->next;
-		tmp2->next = tmp1;
-		*a = tmp2;
-	}
-	if (b && *b && (*b)->next)
-	{
-		tmp1 = *b;
-		tmp2 = tmp1->next;
-		tmp1->next = tmp2->next;
-		tmp2->next = tmp1;
-		*b = tmp2;
-	}
-	g_count.ss++;
-	write(1, "ss\n", 3);
+	swap(a);
+	swap(b);
+	ps_putstr_fd("ss\n", 1);
 }

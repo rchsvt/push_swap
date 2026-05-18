@@ -3,38 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   radix_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
+/*   By: rchavast <rchavast@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:42 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:09:44 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026-05-18 16:18:06 by rchavast          #+#    #+#             */
+/*   Updated: 2026-05-18 16:18:06 by rchavast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "push_swap.h"
+
+static void	sort_bit(t_stack **a, t_stack **b, int bit, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if ((((*a)->index >> bit) & 1) == 1)
+			ra(a);
+		else
+			pb(a, b);
+		i++;
+	}
+	while (*b)
+		pa(a, b);
+}
 
 void	radix_sort(t_stack **a, t_stack **b)
 {
-	int	i;
-	int	j;
+	int	bit;
 	int	size;
 	int	max_bits;
 
-	i = 0;
-	size = ft_lstsize(*a);
+	bit = 0;
+	size = stack_size(*a);
 	max_bits = get_max_bits(*a);
-	while (i < max_bits)
+	while (bit < max_bits)
 	{
-		j = 0;
-		while (j < size)
-		{
-			if ((((*a)->index >> i) & 1) == 1)
-				ra(a);
-			else
-				pb(a, b);
-			j++;
-		}
-		while (*b)
-			pa(a, b);
-		i++;
+		sort_bit(a, b, bit, size);
+		bit++;
 	}
 }

@@ -3,80 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   stack_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
+/*   By: rchavast <rchavast@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:25 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:31:13 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026-05-18 16:18:54 by rchavast          #+#    #+#             */
+/*   Updated: 2026-05-18 16:18:54 by rchavast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_max(t_stack *a)
+void	assign_index(t_stack *stack)
 {
-	int	max;
+	t_stack	*head;
+	t_stack	*tmp;
+	int		index;
 
-	max = a->value;
-	while (a)
+	head = stack;
+	while (stack)
 	{
-		if (a->value > max)
-			max = a->value;
-		a = a->next;
+		index = 0;
+		tmp = head;
+		while (tmp)
+		{
+			if (tmp->value < stack->value)
+				index++;
+			tmp = tmp->next;
+		}
+		stack->index = index;
+		stack = stack->next;
 	}
-	return (max);
 }
 
-int	get_min(t_stack *a)
-{
-	int	min;
-
-	min = a->value;
-	while (a)
-	{
-		if (a->value < min)
-			min = a->value;
-		a = a->next;
-	}
-	return (min);
-}
-
-t_stack	*get_min_node(t_stack *a)
-{
-	t_stack	*min;
-
-	min = a;
-	while (a)
-	{
-		if (a->value < min->value)
-			min = a;
-		a = a->next;
-	}
-	return (min);
-}
-
-int	get_max_bits(t_stack *a)
+int	get_max_bits(t_stack *stack)
 {
 	int	max;
 	int	bits;
 
-	max = ft_lstsize(a) - 1;
+	max = stack_size(stack) - 1;
 	bits = 0;
 	while ((max >> bits) != 0)
 		bits++;
 	return (bits);
 }
 
-int	get_position(t_stack *a, int index)
+int	get_min_index_pos(t_stack *stack)
 {
 	int	pos;
+	int	best_pos;
+	int	min;
 
 	pos = 0;
-	while (a)
+	best_pos = 0;
+	min = stack->index;
+	while (stack)
 	{
-		if (a->index == index)
-			return (pos);
-		a = a->next;
+		if (stack->index < min)
+		{
+			min = stack->index;
+			best_pos = pos;
+		}
 		pos++;
+		stack = stack->next;
 	}
-	return (-1);
+	return (best_pos);
 }

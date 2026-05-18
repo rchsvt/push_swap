@@ -3,39 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   pa_pb.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaaguerd <yasser.aguerd@learner.42.tech    +#+  +:+       +#+        */
+/*   By: rchavast <rchavast@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 00:09:52 by yaaguerd          #+#    #+#             */
-/*   Updated: 2026/05/16 00:09:53 by yaaguerd         ###   ########.fr       */
+/*   Created: 2026-05-18 16:19:47 by rchavast          #+#    #+#             */
+/*   Updated: 2026-05-18 16:19:47 by rchavast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pb(t_stack **a, t_stack **b)
+static void	push(t_stack **dst, t_stack **src)
 {
 	t_stack	*tmp;
 
-	if (!a || !*a)
+	if (!src || !*src)
 		return ;
-	tmp = *a;
-	*a = (*a)->next;
-	tmp->next = *b;
-	*b = tmp;
-	g_count.pa++;
-	write(1, "pb\n", 3);
+	tmp = *src;
+	*src = (*src)->next;
+	tmp->next = *dst;
+	*dst = tmp;
 }
 
 void	pa(t_stack **a, t_stack **b)
 {
-	t_stack	*tmp;
+	push(a, b);
+	ps_putstr_fd("pa\n", 1);
+}
 
-	if (!b || !*b)
-		return ;
-	tmp = *b;
-	*b = (*b)->next;
-	tmp->next = *a;
-	*a = tmp;
-	g_count.pb++;
-	write(1, "pa\n", 3);
+void	pb(t_stack **a, t_stack **b)
+{
+	push(b, a);
+	ps_putstr_fd("pb\n", 1);
 }

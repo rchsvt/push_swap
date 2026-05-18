@@ -1,22 +1,17 @@
-*This activity has been created as part of the 42 curriculum by yaaguerd.*
-
+````md
 # Push_swap
+
+> This activity has been created as part of the 42 curriculum by <rchavast> and <yasser>
 
 ## Description
 
-Push_swap is an algorithmic sorting project from the 42 curriculum.
+Push_swap is an algorithmic sorting project from the 42 School curriculum.
 
-The goal of this project is to sort a list of integers using two stacks (a and b) and a limited set of allowed operations while generating the smallest possible number of instructions.
+The goal of this project is to sort a list of integers using two stacks (`a` and `b`) and a limited set of allowed operations while generating the smallest possible number of instructions.
 
-This project focuses on:
+This project focuses on algorithmic complexity, optimization, data structures, sorting strategies, stack manipulation, and computational thinking.
 
-- Algorithmic complexity
-- Optimization
-- Data structures
-- Sorting strategies
-- Computational thinking
-
-The program must analyze the input, choose an appropriate sorting strategy, and output a valid sequence of Push_swap operations capable of sorting the stack in ascending order.
+The program analyzes the input and outputs a valid sequence of operations capable of sorting the stack in ascending order.
 
 ---
 
@@ -24,163 +19,83 @@ The program must analyze the input, choose an appropriate sorting strategy, and 
 
 ### Swap
 
-sa
-sb
-ss
-
-Swap the first two elements of a stack.
-
----
+| Instruction | Description |
+|---|---|
+| `sa` | Swap the first two elements of stack `a` |
+| `sb` | Swap the first two elements of stack `b` |
+| `ss` | `sa` and `sb` at the same time |
 
 ### Push
 
-pa
-pb
-
-Push the top element from one stack to another.
-
----
+| Instruction | Description |
+|---|---|
+| `pa` | Push the top element from `b` to `a` |
+| `pb` | Push the top element from `a` to `b` |
 
 ### Rotate
 
-ra
-rb
-rr
-
-Shift all elements up by one.
-
----
+| Instruction | Description |
+|---|---|
+| `ra` | Shift up all elements of stack `a` by 1 |
+| `rb` | Shift up all elements of stack `b` by 1 |
+| `rr` | `ra` and `rb` at the same time |
 
 ### Reverse Rotate
 
-rra
-rrb
-rrr
-
-Shift all elements down by one.
-
----
-
-## Objectives
-
-The purpose of Push_swap is not only to sort numbers, but to sort them efficiently.
-
-This project introduces several important algorithmic concepts:
-
-- Time complexity
-- Space complexity
-- Adaptive sorting
-- Stack manipulation
-- Optimization of operations
-
-The project also requires multiple sorting strategies with different complexity classes.
+| Instruction | Description |
+|---|---|
+| `rra` | Shift down all elements of stack `a` by 1 |
+| `rrb` | Shift down all elements of stack `b` by 1 |
+| `rrr` | `rra` and `rrb` at the same time |
 
 ---
 
-## Required Algorithms
+## Sorting Strategy
 
-This project includes four different strategies:
+This implementation uses:
 
-### Simple Algorithm — O(n²)
+- Dedicated sorting for small stacks (`2`, `3`, and `5` numbers)
+- Binary Radix Sort for larger datasets
 
-Used for small or simple datasets.
-
-Examples:
-- Selection sort
-- Bubble sort
-- Insertion sort
+The radix approach provides reliable and efficient performance while remaining fully compliant with the project constraints.
 
 ---
 
-### Medium Algorithm — O(n√n)
+## Performance
 
-Used for medium complexity sorting.
-
-Examples:
-- Chunk sorting
-- Bucket-based strategies
-- Range sorting
-
----
-
-### Complex Algorithm — O(n log n)
-
-Used for large random datasets.
-
-Examples:
-- Radix sort
-- Quick sort adaptation
-- Merge sort adaptation
-
----
-
-### Adaptive Algorithm
-
-The adaptive strategy computes the disorder of the stack before sorting and automatically selects the most appropriate internal strategy depending on the input configuration.
-
-- Low disorder → O(n)
-- Medium disorder → O(n√n)
-- High disorder → O(n log n)
-
----
-
-## Disorder Metric
-
-The project introduces a disorder metric between 0 and 1.
-
-- 0 means the stack is already sorted.
-- 1 means the stack is completely reversed.
-
-This metric helps the adaptive algorithm choose the most efficient strategy.
+| Numbers | Operations |
+|---|---|
+| 3 | ≤ 3 |
+| 5 | ≤ 12 |
+| 100 | ~700–1100 |
+| 500 | ~5500–7000 |
 
 ---
 
 ## Compilation
 
-Compile the project using:
-
+```bash
 make
+````
 
 Available rules:
 
+```bash
 make
 make clean
 make fclean
 make re
+```
 
 ---
 
 ## Usage
 
-### Basic usage
+```bash
+./push_swap 4 67 3 87 23
+```
 
-./push_swap 2 1 3 6 5 8
-
----
-
-### Force a strategy
-
-./push_swap --simple 5 4 3 2 1
-
-./push_swap --medium 5 4 3 2 1
-
-./push_swap --complex 5 4 3 2 1
-
-./push_swap --adaptive 5 4 3 2 1
-
----
-
-### Benchmark mode
-
-./push_swap --bench 4 67 3 87 23
-
-Benchmark mode displays:
-
-- Disorder percentage
-- Selected strategy
-- Complexity class
-- Total number of operations
-- Count of each instruction
+The program outputs the list of operations required to sort the stack.
 
 ---
 
@@ -188,82 +103,72 @@ Benchmark mode displays:
 
 The program displays:
 
+```txt
 Error
+```
 
 when:
 
-- Invalid arguments are provided
-- Duplicate numbers are detected
-- Integers exceed valid limits
-- Parsing fails
-
----
-
-## Performance Goals
-
-### 100 numbers
-
-- Less than 2000 operations → pass
-- Less than 1500 operations → good
-- Less than 700 operations → excellent
-
-### 500 numbers
-
-- Less than 12000 operations → pass
-- Less than 8000 operations → good
-- Less than 5500 operations → excellent
+* invalid arguments are provided
+* duplicate numbers are detected
+* integers exceed valid limits
+* parsing fails
 
 ---
 
 ## Project Structure
 
+```txt
 .
 ├── Makefile
-├── include/
-├── src/
-├── utils/
-├── parsing/
-├── algorithms/
-├── operations/
-└── README.md
+├── push_swap.h
+├── main.c
+├── parsing.c
+├── errors.c
+├── free.c
+├── init_stack.c
+├── stack_utils.c
+├── stack_utils2.c
+├── sa_sb_ss.c
+├── pa_pb.c
+├── ra_rb_rr.c
+├── rra_rrb_rrr.c
+├── small_sort.c
+├── radix_sort.c
+└── utils.c
+```
 
 ---
 
 ## Learning Outcomes
 
-Through this project, I learned:
+Through this project, we learned:
 
-- Stack manipulation
-- Sorting optimization
-- Complexity analysis
-- Adaptive algorithms
-- Efficient data handling in C
-- Operation cost reduction
+* Stack manipulation
+* Sorting optimization
+* Complexity analysis
+* Efficient data handling in C
+* Writing clean and modular code
+* Performance-oriented programming
 
 ---
 
 ## Resources
 
-### Documentation
+* 42 Push_swap subject
+* Linux man pages
+* Big-O complexity documentation
+* Radix sort documentation
 
-- The Push_swap subject PDF
-- Linux man pages
-- 42 intra resources
-- Big-O complexity documentation
+---
 
-### Useful References
+## Notes
 
-- https://www.bigocheatsheet.com/
-- https://en.wikipedia.org/wiki/Radix_sort
-- https://en.wikipedia.org/wiki/Sorting_algorithm
+This project was developed in accordance with the 42 School Norm and compiled using:
 
-### AI Usage
+```bash
+-Wall -Wextra -Werror
+```
 
-AI tools were used for:
-
-- Understanding algorithmic complexity
-- Reviewing sorting strategies
-- Improving explanations and documentation
-- Debugging specific edge cases
-
-All generated content was reviewed, tested, and fully understood before integration into the project.
+```
+```
